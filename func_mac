@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function vim {
+   mvim -v "$@"
+}
+
+function o {
+   test -z "$*" && { echo "usage: $FUNCNAME <proc> - open process"; return 1; }
+   local IFS=$'\n'
+   local r=($(ls -1d /Applications/*$**))
+   if ((${#r[@]} == 1))
+   then
+      command open $r
+      echo $r
+   else
+      select app in "${r[@]}"
+      do command open $app
+      done
+   fi
+}
+
+function c {
+   test -z "$*" && { echo "usage: $FUNCNAME <proc> - close process"; return 1; }
+   ps -ef | grep -i "$*" | grep -v grep | awk '{print $2}' | xargs kill -HUP
+}
+
+

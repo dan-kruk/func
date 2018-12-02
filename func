@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function vi {
+   vim "$@"
+}
+
+function myip {
+   #curl https://ipinfo.io/ip
+   #curl -w "\n" ident.me
+   curl -w "\n" ifconfig.me
+}
+
+#curl wrapper
+curlj ()
+{
+    "$@" -s | python -mjson.tool > /tmp/a.json;
+    vi /tmp/a.json
+}
+
+pjson ()
+{
+   python -mjson.tool
+}
+
+pxml ()
+{
+    xmllint --pretty 1 -
+}
+
+declare -fx pjson pxml
+
