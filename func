@@ -29,3 +29,7 @@ pxml ()
 
 declare -fx pjson pxml
 
+ssh_dropall () 
+{ 
+    kill -9 $(ps -ef|grep "ssh ${1:?provide user}@"|awk '{print $2}') 2> /dev/null
+}
