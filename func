@@ -1,13 +1,21 @@
 #!/bin/bash
 
+function man2html {
+   mkdir -p ~/Downloads/man2html
+   for x; do
+    man $x | 2>/dev/null groff -mandoc -Thtml > ~/Downloads/man2html/$x.html || return
+    echo ">" ~/Downloads/man2html/$x.html
+   done
+}
+
 function vi {
    vim "$@"
 }
 
 function myip {
    #curl https://ipinfo.io/ip
-   #curl -w "\n" ident.me
-   curl -w "\n" ifconfig.me
+   curl -w "\n" ident.me
+   #curl -w "\n" ifconfig.me
 }
 
 #curl wrapper
